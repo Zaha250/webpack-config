@@ -36,7 +36,10 @@ const optimization = () => {
       new TerserWebpackPlugin({
         terserOptions: {
           compress: {
-            comparisons: false
+            comparisons: false,
+            ecma: 5,
+            warnings: false,
+
           },
           mangle: {
             safari10: true
@@ -96,14 +99,14 @@ const plugins = () => {
     new CleanWebpackPlugin()
   ]
 
-  if(isProd) {
+  /* if(isProd) {
     items.push(
       new PrerenderSPAPlugin({
         staticDir: path.join(__dirname, 'build'),
         routes: [ '/']
       })
     )
-  }
+  } */
 
   return items
 }
@@ -227,6 +230,7 @@ module.exports = {
             loader: 'eslint-loader',
             options: {
               enforce: 'pre',
+              cache: true,
               formatter: eslintFormatter,
             },
           },
